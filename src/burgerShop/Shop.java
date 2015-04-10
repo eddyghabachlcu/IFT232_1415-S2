@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package burgerShop;
 
 /**
@@ -19,13 +18,16 @@ public class Shop extends javax.swing.JFrame {
         initComponents();
         getDefaultBehavior();
     }
-    
-    public void getDefaultBehavior(){
-        pnlBurger.setVisible(false);
-        pnlDrink.setVisible(false);
-        cbxDessert.setVisible(false);
-        btnNewOrder.setEnabled(false);
-        btnCalculate.setEnabled(false);
+
+    public void getDefaultBehavior() {
+        initialize();
+        hideBurgerOptions();
+        hideDrinkOptions();
+        checkDrink();
+        hideDessertOptions();
+        checkDessert();
+        checkActions();
+        resetPrice();
     }
 
     /**
@@ -52,14 +54,25 @@ public class Shop extends javax.swing.JFrame {
         pnlActions = new javax.swing.JPanel();
         btnNewOrder = new javax.swing.JButton();
         btnCalculate = new javax.swing.JButton();
+        lblPrice = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         pnlOptions.setBorder(javax.swing.BorderFactory.createTitledBorder("Options"));
 
         chkBurger.setText("Burger");
+        chkBurger.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                chkBurgerItemStateChanged(evt);
+            }
+        });
 
         cbxBurger.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ham", "Chicken", "Fish" }));
+        cbxBurger.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxBurgerActionPerformed(evt);
+            }
+        });
 
         chkCheese.setText("Cheese");
 
@@ -85,10 +98,25 @@ public class Shop extends javax.swing.JFrame {
         );
 
         chkFrenchFries.setText("French Fries");
+        chkFrenchFries.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                chkFrenchFriesItemStateChanged(evt);
+            }
+        });
 
         chkDrink.setText("Drink");
+        chkDrink.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                chkDrinkItemStateChanged(evt);
+            }
+        });
 
         cbxDrink.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Beverage", "IceTea" }));
+        cbxDrink.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxDrinkActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlDrinkLayout = new javax.swing.GroupLayout(pnlDrink);
         pnlDrink.setLayout(pnlDrinkLayout);
@@ -112,6 +140,11 @@ public class Shop extends javax.swing.JFrame {
         );
 
         chkDessert.setText("Dessert");
+        chkDessert.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                chkDessertItemStateChanged(evt);
+            }
+        });
 
         cbxDessert.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ice Cream", "Donnuts" }));
 
@@ -160,8 +193,20 @@ public class Shop extends javax.swing.JFrame {
         pnlActions.setBorder(javax.swing.BorderFactory.createTitledBorder("Actions"));
 
         btnNewOrder.setText("New Order");
+        btnNewOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewOrderActionPerformed(evt);
+            }
+        });
 
         btnCalculate.setText("Calculate");
+        btnCalculate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCalculateActionPerformed(evt);
+            }
+        });
+
+        lblPrice.setText("Price:");
 
         javax.swing.GroupLayout pnlActionsLayout = new javax.swing.GroupLayout(pnlActions);
         pnlActions.setLayout(pnlActionsLayout);
@@ -172,6 +217,8 @@ public class Shop extends javax.swing.JFrame {
                 .addComponent(btnNewOrder)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCalculate)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblPrice)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlActionsLayout.setVerticalGroup(
@@ -180,7 +227,8 @@ public class Shop extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(pnlActionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNewOrder)
-                    .addComponent(btnCalculate))
+                    .addComponent(btnCalculate)
+                    .addComponent(lblPrice))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -207,6 +255,70 @@ public class Shop extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void chkBurgerItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chkBurgerItemStateChanged
+        // TODO add your handling code here:
+        if (chkBurger.isSelected()) {
+            showBurgerOptions();
+        } else {
+            resetBurgerOptions();
+            hideBurgerOptions();
+            resetDrink();
+            resetDessert();
+        }
+        checkDrink();
+        checkDessert();
+        checkActions();
+    }//GEN-LAST:event_chkBurgerItemStateChanged
+
+    private void cbxBurgerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxBurgerActionPerformed
+        // TODO add your handling code here:
+        resetCheese();
+        checkCheese();
+    }//GEN-LAST:event_cbxBurgerActionPerformed
+
+    private void chkDrinkItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chkDrinkItemStateChanged
+        // TODO add your handling code here:
+        if (chkDrink.isSelected()) {
+            resetDrinkOption();
+            showDrinkOptions();
+        } else {
+            hideDrinkOptions();
+        }
+    }//GEN-LAST:event_chkDrinkItemStateChanged
+
+    private void cbxDrinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxDrinkActionPerformed
+        // TODO add your handling code here:
+        resetDrinkDetail();
+    }//GEN-LAST:event_cbxDrinkActionPerformed
+
+    private void chkDessertItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chkDessertItemStateChanged
+        // TODO add your handling code here:
+        if (chkDessert.isSelected()) {
+            showDessertOptions();
+        } else {
+            resetDessertOptions();
+            hideDessertOptions();
+        }
+    }//GEN-LAST:event_chkDessertItemStateChanged
+
+    private void chkFrenchFriesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chkFrenchFriesItemStateChanged
+        // TODO add your handling code here:
+        checkActions();
+    }//GEN-LAST:event_chkFrenchFriesItemStateChanged
+
+    private void btnNewOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewOrderActionPerformed
+        // TODO add your handling code here:
+        enableOptions();
+        resetNewOrder();
+    }//GEN-LAST:event_btnNewOrderActionPerformed
+
+    private void btnCalculateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateActionPerformed
+        // TODO add your handling code here:
+        disableCalculate();
+        disableOptions();
+        getPrice();
+    }//GEN-LAST:event_btnCalculateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -242,6 +354,204 @@ public class Shop extends javax.swing.JFrame {
             }
         });
     }
+    
+    public void initialize(){
+        this.setLocationRelativeTo(this);
+        this.setTitle("Best Burger");
+    }
+
+    public void showBurgerOptions() {
+        pnlBurger.setVisible(true);
+    }
+
+    public void hideBurgerOptions() {
+        pnlBurger.setVisible(false);
+    }
+
+    public void resetBurgerOptions() {
+        cbxBurger.setSelectedIndex(0);
+    }
+
+    public void resetCheese() {
+        chkCheese.setSelected(false);
+    }
+
+    public void checkCheese() {
+        switch (cbxBurger.getSelectedItem().toString()) {
+            case "Fish":
+                chkCheese.setEnabled(false);
+                break;
+            case "Ham":
+            case "Chicken":
+                chkCheese.setEnabled(true);
+                break;
+
+        }
+    }
+
+    public void resetDrinkOption() {
+        cbxDrink.setSelectedIndex(0);
+    }
+
+    public void showDrinkOptions() {
+        pnlDrink.setVisible(true);
+    }
+
+    public void hideDrinkOptions() {
+        pnlDrink.setVisible(false);
+    }
+
+    public void resetDrinkDetail() {
+        cbxDrinkDetail.removeAllItems();
+        switch (cbxDrink.getSelectedItem().toString()) {
+            case "Beverage":
+                cbxDrinkDetail.addItem("Pepsi");
+                cbxDrinkDetail.addItem("7up");
+                break;
+            case "IceTea":
+                cbxDrinkDetail.addItem("Peach");
+                cbxDrinkDetail.addItem("Lemon");
+                break;
+        }
+    }
+
+    public void showDessertOptions() {
+        cbxDessert.setVisible(true);
+    }
+
+    public void hideDessertOptions() {
+        cbxDessert.setVisible(false);
+    }
+
+    public void resetDessertOptions() {
+        cbxDessert.setSelectedIndex(0);
+    }
+
+    public void resetDrink() {
+        chkDrink.setSelected(false);
+    }
+
+    public void resetDessert() {
+        chkDessert.setSelected(false);
+    }
+
+    public void checkDrink() {
+        if (chkBurger.isSelected()) {
+            chkDrink.setEnabled(true);
+        } else {
+            chkDrink.setEnabled(false);
+        }
+    }
+
+    public void checkDessert() {
+        if (chkBurger.isSelected()) {
+            chkDessert.setEnabled(true);
+        } else {
+            chkDessert.setEnabled(false);
+        }
+    }
+
+    public void checkActions() {
+        if (chkBurger.isSelected()
+                || chkFrenchFries.isSelected()) {
+            btnNewOrder.setEnabled(true);
+            btnCalculate.setEnabled(true);
+        } else {
+            btnNewOrder.setEnabled(false);
+            btnCalculate.setEnabled(false);
+        }
+    }
+
+    public void resetNewOrder() {
+        chkBurger.setSelected(false);
+        chkFrenchFries.setSelected(false);
+        resetPrice();
+    }
+
+    public void getPrice() {
+        int price = 0;
+
+        if (chkBurger.isSelected()) {
+            switch (cbxBurger.getSelectedItem().toString()) {
+                case "Ham":
+                    price = 9000;
+                    break;
+                case "Chicken":
+                    price = 8000;
+                    break;
+                case "Fish":
+                    price = 7000;
+                    break;
+            }
+            if (chkCheese.isSelected()) {
+                price += 1000;
+            }
+        }
+        if (chkFrenchFries.isSelected()) {
+            price += 2500;
+        }
+        if (chkDrink.isSelected()) {
+            switch (cbxDrink.getSelectedItem().toString()) {
+                case "Beverage":
+                    price += 1000;
+                    break;
+                case "IceTea":
+                    price += 1500;
+                    break;
+            }
+        }
+        if (chkDessert.isSelected()) {
+            switch (cbxDessert.getSelectedItem().toString()) {
+                case "Donnuts":
+                    price += 2000;
+                    break;
+                case "IceCream":
+                    price += 2500;
+                    break;
+            }
+        }
+        if (chkBurger.isSelected() && chkFrenchFries.isSelected()
+                && chkDrink.isSelected() && chkDessert.isSelected()) {
+            price -= 1500;
+        } else if (chkBurger.isSelected() && chkFrenchFries.isSelected()
+                && chkDrink.isSelected()) {
+            price -= 1000;
+        }
+
+        lblPrice.setText(lblPrice.getText() + price);
+        lblPrice.setVisible(true);
+    }
+
+    public void resetPrice() {
+        lblPrice.setText("Price:");
+        lblPrice.setVisible(false);
+    }
+
+    public void disableOptions() {
+        chkBurger.setEnabled(false);
+        cbxBurger.setEnabled(false);
+        chkCheese.setEnabled(false);
+        chkFrenchFries.setEnabled(false);
+        chkDrink.setEnabled(false);
+        cbxDrink.setEnabled(false);
+        cbxDrinkDetail.setEnabled(false);
+        chkDessert.setEnabled(false);
+        cbxDessert.setEnabled(false);
+    }
+
+    public void enableOptions() {
+        chkBurger.setEnabled(true);
+        cbxBurger.setEnabled(true);
+        chkCheese.setEnabled(true);
+        chkFrenchFries.setEnabled(true);
+        cbxDrink.setEnabled(true);
+        cbxDrinkDetail.setEnabled(true);
+        cbxDessert.setEnabled(true);
+    }
+    
+    public void disableCalculate(){
+        btnCalculate.setEnabled(false);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCalculate;
@@ -255,6 +565,7 @@ public class Shop extends javax.swing.JFrame {
     private javax.swing.JCheckBox chkDessert;
     private javax.swing.JCheckBox chkDrink;
     private javax.swing.JCheckBox chkFrenchFries;
+    private javax.swing.JLabel lblPrice;
     private javax.swing.JPanel pnlActions;
     private javax.swing.JPanel pnlBurger;
     private javax.swing.JPanel pnlDrink;

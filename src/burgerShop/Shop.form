@@ -113,6 +113,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Burger"/>
           </Properties>
+          <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="chkBurgerItemStateChanged"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JPanel" name="pnlBurger">
 
@@ -152,6 +155,9 @@
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxBurgerActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JCheckBox" name="chkCheese">
               <Properties>
@@ -164,11 +170,17 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="French Fries"/>
           </Properties>
+          <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="chkFrenchFriesItemStateChanged"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JCheckBox" name="chkDrink">
           <Properties>
             <Property name="text" type="java.lang.String" value="Drink"/>
           </Properties>
+          <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="chkDrinkItemStateChanged"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JPanel" name="pnlDrink">
 
@@ -207,6 +219,9 @@
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxDrinkActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="cbxDrinkDetail">
               <Properties>
@@ -221,6 +236,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Dessert"/>
           </Properties>
+          <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="chkDessertItemStateChanged"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="cbxDessert">
           <Properties>
@@ -251,6 +269,8 @@
                   <Component id="btnNewOrder" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnCalculate" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="lblPrice" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -262,6 +282,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnNewOrder" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnCalculate" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblPrice" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -273,10 +294,21 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="New Order"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNewOrderActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnCalculate">
           <Properties>
             <Property name="text" type="java.lang.String" value="Calculate"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCalculateActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblPrice">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Price:"/>
           </Properties>
         </Component>
       </SubComponents>
